@@ -32,6 +32,16 @@ Key fraud types relevant to the region include:
 - The target variable `IsFraud` is highly imbalanced: only about 1% of transactions are fraudulent. This requires modeling techniques that emphasize fraud recall and class imbalance handling rather than raw accuracy.
 - Categorical fields such as transaction type and location need additional exploration, as they can provide important context for fraud patterns.
 
+## EDA Findings
+- Fraud is rare: only 1% of transactions are labeled fraudulent, so models should prioritize sensitivity and class imbalance mitigation.
+- Highest transaction volume months are `2024-07`, `2024-03`, `2023-12`, `2024-05`, `2024-08`, and `2024-09`, suggesting peak spending periods.
+- Transaction volume is broadly distributed across the week, with slightly higher totals on weekends.
+- High-value transaction activity is concentrated in afternoon and early morning hours, notably around 16:00, 04:00, 12:00, 06:00, 15:00, 14:00, 21:00, and 10:00.
+- Locations with the highest fraud rates include `New York`, `San Diego`, `Houston`, `Phoenix`, `San Antonio`, `Dallas`, `Los Angeles`, `Chicago`, `Philadelphia`, and `San Jose`.
+- Average transaction amounts in these high-fraud locations are similar to the dataset average, indicating that location may be a stronger fraud signal than transaction amount alone.
+- `refund` transactions are slightly more fraud-prone than `purchase` transactions, with fraud rates of approximately 1.0114% and 0.9886%, respectively.
+- Several merchant-location pairs show very high fraud rates in small samples, including merchants in Los Angeles, Dallas, New York, San Diego, and Chicago. These require deeper review.
+
 ## Project Structure
 - `data/` — raw and processed datasets
 - `notebooks/` — exploratory data analysis and modeling notebooks
