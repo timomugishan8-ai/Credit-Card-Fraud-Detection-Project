@@ -42,6 +42,37 @@ Key fraud types relevant to the region include:
 - `refund` transactions are slightly more fraud-prone than `purchase` transactions, with fraud rates of approximately 1.0114% and 0.9886%, respectively.
 - Several merchant-location pairs show very high fraud rates in small samples, including merchants in Los Angeles, Dallas, New York, San Diego, and Chicago. These require deeper review.
 
+## Feature Engineering and Modeling Notebook Coverage
+This notebook focuses on preparing the fraud dataset for supervised learning and building the foundation of the classification pipeline.
+
+### What was covered
+- Reviewed the raw transaction dataset and inspected the structure, variable types, and unique values.
+- Identified the target variable (`IsFraud`) and the fields that should be excluded from modeling, such as `TransactionID` and `MerchantID`, which behave more like identifiers than predictive features.
+- Examined the class distribution and confirmed that fraud is highly imbalanced, making standard accuracy insufficient as a primary model metric.
+- Converted the transaction date into a datetime format and engineered new time-based features such as:
+  - `TransactionHour`
+  - `TransactionDay`
+  - `TransactionMonth`
+  - `TransactionYear`
+- Prepared the feature matrix by dropping non-predictive identifiers and the target variable.
+- Split the data into training and testing sets using `train_test_split` with `test_size=0.2` and `stratify=y` to preserve the fraud rate in both subsets.
+- Verified the class distribution in both the training and testing sets to confirm consistency with the original dataset.
+- Defined preprocessing steps for the model pipeline:
+  - numeric features: `StandardScaler`
+  - categorical features: `OneHotEncoder`
+- Used `ColumnTransformer` to apply the correct transformations to each feature type in a clean and reproducible way.
+- Fitted the preprocessing transformer on the training data only and transformed the test data using the same configuration to avoid data leakage.
+- Evaluated model quality using multiple metrics, including:
+  - `accuracy_score`
+  - `precision_score`
+  - `recall_score`
+  - `f1_score`
+  - `confusion_matrix`
+  - `classification_report`
+
+### Key takeaway
+The notebook demonstrates the standard machine learning workflow for fraud detection: understanding the dataset, engineering useful features, preserving data integrity during splitting, preprocessing appropriately, and evaluating results using metrics designed for imbalanced classification problems.
+
 ## Project Structure
 - `data/` — raw and processed datasets
 - `notebooks/` — exploratory data analysis and modeling notebooks
